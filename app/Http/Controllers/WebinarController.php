@@ -3,32 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\WebinarService;
+use App\Service\GoToWebinarService;
 
 class WebinarController extends Controller
 {
-    protected $WebinarService;
+    protected $goToWebinarService;
 
-    public function __construct(WebinarService $WebinarService)
+    public function __construct(GoToWebinarService $goToWebinarService)
     {
-        $this->WebinarService = $WebinarService;
+        $this->goToWebinarService = $goToWebinarService;
     }
 
     public function index()
     {
-        $webinars = $this->WebinarService->getWebinars();
+        $webinars = $this->goToWebinarService->getWebinars();
         return view('dashboard', compact('webinars'));
     }
 
-    public function store(Request $request)
-    {
-        $data = [
-            'subject' => $request->input('subject'),
-            'description' => $request->input('description'),
-            'startTime' => $request->input('startTime'),
-            'endTime' => $request->input('endTime'),
-        ];
-        $createdWebinar = $this->goToMeetingService->createWebinar($data);
-        return redirect()->route('dashboard')->with('success', 'DONE');
+    public function createWebinar(Request $request)
+    {        
+        $webinarData = $request->all(); 
+        $response = $this->goToWebinarService->createWebinar($request, $webinarData);
+        return redirect()->route('dashboard')->with('success', 'Creatted Success');
     }
 }

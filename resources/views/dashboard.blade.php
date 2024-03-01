@@ -28,13 +28,13 @@
                             <tbody>
                                 @php($i = 0)
                                 @foreach ($webinars as $row)
-                                <tr>
-                                    <th scope="row">{{ $i++}}</th>
-                                    <td>{{ $row->subject }}</td>
-                                    <td>{{ $row->description }}</td>
-                                    <td>{{ $row->startTime }}</td>
-                                    <td>{{ $row->endTime }}</td>
-                                </tr>
+                                    <tr>
+                                        <th scope="row">{{ ++$i }}</th>
+                                        {{-- <td>{{ $row->subject }}</td> --}}
+                                        {{-- <td>{{ $row->description }}</td> --}}
+                                        {{-- <td>{{ $row->startTime }}</td> --}}
+                                        {{-- <td>{{ $row->endTime }}</td> --}}
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
